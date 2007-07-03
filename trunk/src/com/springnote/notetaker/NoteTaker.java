@@ -54,7 +54,7 @@ public class NoteTaker {
 	public List<PageMeta> fetchPageList() {
 		List<PageMeta> list = null;
 		try {
-			list = springnote.loadIndices();
+			list = springnote.getPages();
 		} catch (Exception e) {
 			throw new NoteTakerException("페이지 목록을 가져오는 도중 오류가 발생하였습니다.", e);
 		}
