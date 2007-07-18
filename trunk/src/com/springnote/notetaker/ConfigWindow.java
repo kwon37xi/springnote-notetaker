@@ -27,6 +27,8 @@ public class ConfigWindow extends JDialog {
 	Label userOpenIdLabel = new Label("사용자 오픈 아이디");
 
 	Label userDomainNameLabel = new Label("스프링노트 도메인명");
+	Label userDomainNamePrefixLabel = new Label("http://");
+	Label userDomainNamePostfixLabel = new Label(".springnote.com");
 
 	Label userKeyLabel = new Label("사용자 키");
 
@@ -63,7 +65,7 @@ public class ConfigWindow extends JDialog {
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		JPanel configPanel = new JPanel();
-		configPanel.setLayout(new GridLayout(6, 1));
+		configPanel.setLayout(new GridLayout(7, 1));
 
 		populateValues();
 
@@ -147,11 +149,16 @@ public class ConfigWindow extends JDialog {
 		JPanel userOpenIdPanel = new JPanel(new FlowLayout());
 		userOpenIdPanel.add(userOpenIdLabel);
 		userOpenIdPanel.add(userOpenIdTextField);
+		
 		configPanel.add(userOpenIdPanel);
 
 		JPanel userDomainNamePanel = new JPanel(new FlowLayout());
 		userDomainNamePanel.add(userDomainNameLabel);
+		userDomainNamePanel.add(userDomainNamePrefixLabel);
 		userDomainNamePanel.add(userDomainNameTextField);
+		userDomainNameTextField.setColumns(15);
+		userDomainNameTextField.setHorizontalAlignment(JTextField.RIGHT);
+		userDomainNamePanel.add(userDomainNamePostfixLabel);
 		configPanel.add(userDomainNamePanel);
 
 		JPanel userKeyPanel = new JPanel(new FlowLayout());
@@ -167,11 +174,13 @@ public class ConfigWindow extends JDialog {
 		configPanel.add(rowColPanel);
 
 		JPanel pageSelectPanel = new JPanel(new FlowLayout());
-
 		pageSelectPanel.add(pagesComboBox);
-		pageSelectPanel.add(getPagesButton);
 		configPanel.add(pageSelectPanel);
 
+		JPanel pageSelectButtonPanel = new JPanel(new FlowLayout());
+		pageSelectButtonPanel.add(getPagesButton);
+		configPanel.add(pageSelectButtonPanel);
+		
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		buttonPanel.add(okButton);
 		buttonPanel.add(cancelButton);
@@ -184,6 +193,9 @@ public class ConfigWindow extends JDialog {
 
 	protected void populateValues() {
 		userOpenIdTextField.setText(config.getOpenId());
+		if (userOpenIdTextField.getText().trim().length() == 0) {
+			userOpenIdTextField.setText("오픈 아이디는 http:// 와 마지막 / 까지 정확하게 적어야 합니다.");
+		}
 		userDomainNameTextField.setText(config.getUserDomainName());
 		userKeyPasswordField.setText(config.getUserKey());
 		rowTextField.setText(String.valueOf(config.getRows()));

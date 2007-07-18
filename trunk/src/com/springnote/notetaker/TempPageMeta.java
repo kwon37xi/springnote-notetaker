@@ -18,6 +18,11 @@ public class TempPageMeta {
 	}
 	
 	public String toString() {
-		return getName() + " [" + getId() + "]" ;
+		final int MAX_LENGTH = 30;
+		String name = getName();
+		if (name.length() > MAX_LENGTH) {
+			name = name.substring(0, MAX_LENGTH) + "...";
+		}
+		return name + " [" + getId() + "]" ;
 	}
 }
