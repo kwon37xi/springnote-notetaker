@@ -1,2 +1,3 @@
 #!/bin/sh
+cd `dirname $0`
 java -cp notetaker.jar:lib/springnote-api.jar com.springnote.notetaker.NoteTakerMain
